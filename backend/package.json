@@ -1,0 +1,40 @@
+{
+  "name": "nft-designer-backend",
+  "version": "1.0.0",
+  "description": "Backend API for NFT Designer Figma plugin",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["nft", "blockchain", "api", "figma"],
+  "author": "NFT Designer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "dotenv": "^16.3.1",
+    "multer": "^1.4.5-lts.1",
+    "axios": "^1.5.0",
+    "openai": "^4.0.0",
+    "nft.storage": "^7.0.0",
+    "ethers": "^6.7.1",
+    "form-data": "^4.0.0",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "jest": "^29.6.2",
+    "@types/jest": "^29.5.4"
+  }
+}

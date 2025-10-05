@@ -1,0 +1,76 @@
+{
+  "name": "nft-designer-figma",
+  "version": "1.0.0",
+  "description": "Complete NFT Designer Plugin for Figma - Export designs as NFTs with AI enhancement and blockchain minting",
+  "private": true,
+  "workspaces": [
+    "figma-plugin",
+    "backend",
+    "contracts",
+    "web-signer",
+    "shared"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install:figma && npm run install:backend && npm run install:contracts && npm run install:web-signer && npm run install:shared",
+    "install:figma": "cd figma-plugin && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:contracts": "cd contracts && npm install",
+    "install:web-signer": "cd web-signer && npm install",
+    "install:shared": "cd shared && npm install",
+    "build:all": "npm run build:shared && npm run build:figma && npm run build:backend && npm run build:web-signer",
+    "build:shared": "cd shared && npm run build",
+    "build:figma": "cd figma-plugin && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:web-signer": "cd web-signer && npm run build",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:web-signer": "cd web-signer && npm start",
+    "dev:figma": "cd figma-plugin && npm run dev",
+    "test:contracts": "cd contracts && npm run test",
+    "deploy:contracts": "cd contracts && npm run deploy:mumbai",
+    "start:backend": "cd backend && npm start",
+    "start:web-signer": "cd web-signer && npm start",
+    "clean": "npm run clean:figma && npm run clean:backend && npm run clean:web-signer && npm run clean:shared",
+    "clean:figma": "cd figma-plugin && rm -rf dist node_modules",
+    "clean:backend": "cd backend && rm -rf dist node_modules",
+    "clean:web-signer": "cd web-signer && rm -rf build node_modules",
+    "clean:shared": "cd shared && rm -rf dist node_modules",
+    "type-check": "npm run type-check:figma && npm run type-check:backend && npm run type-check:web-signer && npm run type-check:shared",
+    "type-check:figma": "cd figma-plugin && npm run type-check",
+    "type-check:backend": "cd backend && npm run type-check",
+    "type-check:web-signer": "cd web-signer && npm run type-check",
+    "type-check:shared": "cd shared && npm run type-check"
+  },
+  "keywords": [
+    "figma",
+    "plugin",
+    "nft",
+    "blockchain",
+    "polygon",
+    "ethereum",
+    "metamask",
+    "ipfs",
+    "ai",
+    "openai"
+  ],
+  "author": "NFT Designer Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nft-designer/figma-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nft-designer/figma-plugin/issues"
+  },
+  "homepage": "https://nft-designer.com",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  }
+}

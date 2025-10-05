@@ -1,0 +1,43 @@
+{
+  "name": "nft-designer-web-signer",
+  "version": "1.0.0",
+  "description": "MetaMask web-signer for NFT Designer",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["metamask", "web3", "nft", "blockchain"],
+  "author": "NFT Designer",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "ethers": "^6.7.1",
+    "web3": "^4.1.1",
+    "@metamask/detect-provider": "^2.0.0",
+    "axios": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

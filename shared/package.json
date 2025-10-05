@@ -1,0 +1,18 @@
+{
+  "name": "nft-designer-shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for NFT Designer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["nft", "blockchain", "shared", "types"],
+  "author": "NFT Designer",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}

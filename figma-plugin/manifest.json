@@ -1,0 +1,27 @@
+{
+  "name": "NFT Designer",
+  "id": "nft-designer",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "design2nft-ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.openai.com",
+      "https://api.nft.storage",
+      "https://polygon-mumbai.g.alchemy.com",
+      "https://polygon-mainnet.g.alchemy.com"
+    ],
+    "devAllowedDomains": [
+      "http://localhost:3001"
+    ],
+    "reasoning": "This plugin needs to communicate with local backend API for NFT minting during development"
+  },
+  "permissions": [
+    "currentuser"
+  ]
+}

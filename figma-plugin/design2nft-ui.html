@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>NFT Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #ec4899;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+        }
+
+        .logo-icon {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .title-dot {
+            width: 6px;
+            height: 6px;
+            background: #ec4899;
+            border-radius: 50%;
+        }
+
+        .subtitle {
+            color: #a1a1aa;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .form-container {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .thumbnail-container {
+            width: 100%;
+            height: 200px;
+            background: #27272a;
+            border: 2px dashed #52525b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .thumbnail-placeholder {
+            color: #71717a;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .select-frame-btn {
+            width: 100%;
+            background: #27272a;
+            color: #ffffff;
+            border: 1px solid #52525b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .select-frame-btn:hover {
+            background: #3f3f46;
+            border-color: #71717a;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #27272a;
+            color: #ffffff;
+            border: 1px solid #52525b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #71717a;
+        }
+
+        .textarea-field {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .ai-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-label {
+            font-size: 14px;
+            color: #a1a1aa;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #52525b;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active {
+            background: #8b5cf6;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(20px);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .select-dropdown {
+            position: relative;
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #71717a;
+            pointer-events: none;
+        }
+
+        .mint-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .mint-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .mint-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #a1a1aa;
+            font-size: 14px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #52525b;
+            border-top: 2px solid #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer-dot {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #ec4899;
+            border-radius: 50%;
+        }
+
+        /* Custom scrollbar */
+        .form-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .form-container::-webkit-scrollbar-track {
+            background: #27272a;
+        }
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: #52525b;
+            border-radius: 2px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb:hover {
+            background: #71717a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">N</div>
+            </div>
+            <div class="title">NFT Designer</div>
+            <div class="title-dot"></div>
+        </div>
+        
+        <div class="subtitle">Mint your Figma design as NFT instantly.</div>
+
+        <div class="form-container">
+            <!-- Frame Selection -->
+            <div class="form-group">
+                <div class="form-label">Selected Frame</div>
+                <div class="thumbnail-container" id="thumbnailContainer">
+                    <div class="thumbnail-placeholder" id="thumbnailPlaceholder">
+                        Selected frame thumbnail
+                    </div>
+                </div>
+                <button class="select-frame-btn" onclick="selectFrame()">
+                    Select Frame from Canvas
+                </button>
+            </div>
+
+            <!-- NFT Title -->
+            <div class="form-group">
+                <div class="form-label">NFT Title</div>
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="nftTitle"
+                    placeholder="e.g., My Awesome Creation"
+                >
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <div class="form-label">Description</div>
+                <textarea 
+                    class="input-field textarea-field" 
+                    id="nftDescription"
+                    placeholder="Describe your NFT..."
+                ></textarea>
+                <div class="ai-section">
+                    <div class="toggle-container">
+                        <div class="toggle-switch" id="aiToggle" onclick="toggleAI()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                        <div class="toggle-label">Auto-Generate using AI</div>
+                    </div>
+                    <button class="generate-btn" id="generateBtn" onclick="generateDescription()" disabled>
+                        Generate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Network Selection -->
+            <div class="form-group">
+                <div class="form-label">Select Network</div>
+                <div class="select-dropdown">
+                    <select class="input-field" id="networkSelect">
+                        <option value="">Select Network</option>
+                        <option value="polygon-mumbai">Polygon Mumbai (Testnet)</option>
+                        <option value="polygon-mainnet">Polygon Mainnet</option>
+                        <option value="ethereum-sepolia">Ethereum Sepolia (Testnet)</option>
+                        <option value="ethereum-mainnet">Ethereum Mainnet</option>
+                    </select>
+                    <div class="dropdown-arrow">−</div>
+                </div>
+            </div>
+
+            <!-- Wallet Address -->
+            <div class="form-group">
+                <div class="form-label">Wallet Address</div>
+                <input 
+                    type="text" 
+                    class="input-field" 
+                    id="walletAddress"
+                    placeholder="0x..."
+                >
+            </div>
+
+            <!-- Mint Button -->
+            <button class="mint-btn" id="mintBtn" onclick="mintNFT()" disabled>
+                Mint NFT
+            </button>
+
+            <!-- Loading State -->
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <span>Processing...</span>
+            </div>
+        </div>
+
+        <div class="footer-dot"></div>
+    </div>
+
+    <script>
+        console.log('NFT Designer: Design2NFT-style UI loaded successfully!');
+
+        let selectedFrame = null;
+        let aiEnabled = false;
+
+        // Frame Selection
+        function selectFrame() {
+            console.log('Selecting frame from canvas...');
+            parent.postMessage({ 
+                pluginMessage: { 
+                    type: 'select-frame' 
+                } 
+            }, '*');
+        }
+
+        // AI Toggle
+        function toggleAI() {
+            aiEnabled = !aiEnabled;
+            const toggle = document.getElementById('aiToggle');
+            const generateBtn = document.getElementById('generateBtn');
+            
+            if (aiEnabled) {
+                toggle.classList.add('active');
+                generateBtn.disabled = false;
+            } else {
+                toggle.classList.remove('active');
+                generateBtn.disabled = true;
+            }
+        }
+
+        // Generate Description
+        function generateDescription() {
+            if (!aiEnabled) return;
+            
+            console.log('Generating description with AI...');
+            const generateBtn = document.getElementById('generateBtn');
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Generating...';
+            
+            parent.postMessage({ 
+                pluginMessage: { 
+                    type: 'generate-description',
+                    title: document.getElementById('nftTitle').value
+                } 
+            }, '*');
+        }
+
+        // Mint NFT
+        function mintNFT() {
+            const title = document.getElementById('nftTitle').value;
+            const description = document.getElementById('nftDescription').value;
+            const network = document.getElementById('networkSelect').value;
+            const wallet = document.getElementById('walletAddress').value;
+
+            if (!title || !description || !network || !wallet || !selectedFrame) {
+                alert('Please fill in all fields and select a frame');
+                return;
+            }
+
+            console.log('Starting NFT minting process...');
+            showLoading(true);
+            
+            const mintData = {
+                title,
+                description,
+                network,
+                wallet,
+                frame: selectedFrame
+            };
+
+            parent.postMessage({ 
+                pluginMessage: { 
+                    type: 'mint-nft',
+                    data: mintData
+                } 
+            }, '*');
+        }
+
+        // Show/Hide Loading
+        function showLoading(show) {
+            const loading = document.getElementById('loadingState');
+            const mintBtn = document.getElementById('mintBtn');
+            
+            if (show) {
+                loading.style.display = 'flex';
+                mintBtn.disabled = true;
+                mintBtn.textContent = 'Minting...';
+            } else {
+                loading.style.display = 'none';
+                mintBtn.disabled = false;
+                mintBtn.textContent = 'Mint NFT';
+            }
+        }
+
+        // Update thumbnail
+        function updateThumbnail(imageData) {
+            const container = document.getElementById('thumbnailContainer');
+            const placeholder = document.getElementById('thumbnailPlaceholder');
+            
+            if (imageData) {
+                placeholder.style.display = 'none';
+                const img = document.createElement('img');
+                img.src = imageData;
+                img.className = 'thumbnail-image';
+                img.onload = () => {
+                    container.innerHTML = '';
+                    container.appendChild(img);
+                };
+            }
+        }
+
+        // Validate form
+        function validateForm() {
+            const title = document.getElementById('nftTitle').value;
+            const description = document.getElementById('nftDescription').value;
+            const network = document.getElementById('networkSelect').value;
+            const wallet = document.getElementById('walletAddress').value;
+            const mintBtn = document.getElementById('mintBtn');
+
+            const isValid = title && description && network && wallet && selectedFrame;
+            mintBtn.disabled = !isValid;
+        }
+
+        // Form validation listeners
+        document.getElementById('nftTitle').addEventListener('input', validateForm);
+        document.getElementById('nftDescription').addEventListener('input', validateForm);
+        document.getElementById('networkSelect').addEventListener('change', validateForm);
+        document.getElementById('walletAddress').addEventListener('input', validateForm);
+
+        // Listen for messages from the plugin code
+        window.onmessage = (event) => {
+            console.log('Received message from plugin:', event.data.pluginMessage);
+            
+            const message = event.data.pluginMessage;
+            
+            switch (message.type) {
+                case 'frame-selected':
+                    selectedFrame = message.data;
+                    updateThumbnail(message.data.thumbnail);
+                    validateForm();
+                    break;
+                    
+                case 'description-generated':
+                    document.getElementById('nftDescription').value = message.data;
+                    validateForm();
+                    break;
+                    
+                case 'mint-success':
+                    showLoading(false);
+                    alert('NFT minted successfully!');
+                    break;
+                    
+                case 'mint-error':
+                    showLoading(false);
+                    alert('Error: ' + message.message);
+                    break;
+                    
+                case 'error':
+                    showLoading(false);
+                    alert('Error: ' + message.message);
+                    break;
+            }
+        };
+
+        // Initialize
+        console.log('NFT Designer: UI initialized and ready!');
+    </script>
+</body>
+</html>
