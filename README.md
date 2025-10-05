@@ -309,3 +309,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Made with ❤️ by the NFT Designer Team**
+
+tool presentation=
+[plugin.pptx](https://github.com/user-attachments/files/22706654/plugin.pptx)
+
